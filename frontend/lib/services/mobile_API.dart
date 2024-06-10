@@ -10,6 +10,8 @@ Future<List<Venue>> fetchData() async {
   String url = AppDataStore.url;
   final response = await http.get(Uri.parse('$url/query/search'));
 
+  print(response.body);
+
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);
 
@@ -18,8 +20,9 @@ Future<List<Venue>> fetchData() async {
 
     // print(venuesData); this works, so that means its the conversion to Venue object that is the problem
     //check the structure of the first item
-
-    print(venuesData[0]['nameOfVenue']);
+    print('');
+    print(jsonData);
+    print('');
 
     // Convert each venue data to a Venue object
     final List<Venue> venues = venuesData
@@ -130,9 +133,10 @@ Future<List<Venue>> fetchData() async {
                                         ))
                                     .toList() ??
                                 [],
-                            bookingCharges: (subVenueData['bookingCharges']
-                                        as List<dynamic>?)
-                                    ?.map((bookingChargeData) => BookingCharge(
+                            bookingCharges: (venueData['bookingCharges']
+                                    is List<dynamic>)
+                                ? (venueData['bookingCharges'] as List<dynamic>)
+                                    .map((bookingChargeData) => BookingCharge(
                                           bookingChargeName: bookingChargeData[
                                                   'bookingChargeName'] ??
                                               '',
@@ -140,8 +144,8 @@ Future<List<Venue>> fetchData() async {
                                                   'bookingChargePrice'] ??
                                               0,
                                         ))
-                                    .toList() ??
-                                [],
+                                    .toList()
+                                : [],
                           ))
                       .toList() ??
                   [],
@@ -149,8 +153,8 @@ Future<List<Venue>> fetchData() async {
                       ?.map((reviewData) => Review(
                             nameOfVenue: reviewData['nameOfVenue'] ?? '',
                             totalScore:
-                                reviewData['totalScore'].toDouble() ?? 0.0,
-                            rating: reviewData['reviewRating'] ?? '',
+                                (reviewData['totalScore'] ?? 0).toDouble(),
+                            reviewRating: reviewData['reviewRating'] ?? '',
                             stars: reviewData['stars'] ?? 0,
                             sentiment: reviewData['sentiment'] ?? '',
                             text: reviewData['text'] ?? '',
@@ -159,6 +163,8 @@ Future<List<Venue>> fetchData() async {
                   [],
             ))
         .toList();
+
+    print(venues[0].reviews[0].totalScore);
 
     return venues;
   } else {

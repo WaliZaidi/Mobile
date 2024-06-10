@@ -99,17 +99,23 @@ class TopNavBar extends StatelessWidget {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              showModalBottomSheet(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                builder: (context) => SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.8, // Adjust the fraction as needed
-                                  width: double.infinity,
-                                  child: const FilterWidget(),
-                                ),
-                              );
+                              // showModalBottomSheet(
+                              //   context: context,
+                              //   backgroundColor: Colors.transparent,
+                              //   isScrollControlled: true,
+                              //   builder: (context) => SizedBox(
+                              //     height: MediaQuery.of(context).size.height *
+                              //         0.8, // Adjust the fraction as needed
+                              //     width: double.infinity,
+                              //     child: const FilterWidget(),
+                              //   ),
+                              // );
+                              Navigator.of(context).push(PageRouteBuilder(
+                                opaque: false,
+                                pageBuilder: (BuildContext context, _, __) {
+                                  return const FilterWidget();
+                                },
+                              ));
                             },
                             icon: const Icon(Icons.tune),
                           ),

@@ -98,7 +98,7 @@ class BookingCharge {
 class Review {
   final String nameOfVenue;
   final double totalScore;
-  final String rating;
+  final String reviewRating;
   final int stars;
   final String sentiment;
   final String text;
@@ -106,7 +106,7 @@ class Review {
   Review({
     required this.nameOfVenue,
     required this.totalScore,
-    required this.rating,
+    required this.reviewRating,
     required this.stars,
     required this.sentiment,
     required this.text,

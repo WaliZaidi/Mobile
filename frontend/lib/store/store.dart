@@ -12,7 +12,7 @@ class AppDataStore {
   static Venue? currentVenue;
   static UserInfo? currentUser;
   static List<Venue> filteredVenues = [];
-  static String url = 'http://192.168.18.16:4000';
+  static String url = 'http://192.168.18.84:4000';
 
   static ValueNotifier<bool> loggedInNotifier = ValueNotifier<bool>(false);
 
